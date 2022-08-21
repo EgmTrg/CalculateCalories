@@ -1,6 +1,7 @@
 ﻿using CalculateCalories.ORM;
 using System;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar;
 
 namespace CalculateCalories
 {
@@ -29,10 +30,30 @@ namespace CalculateCalories
         }
 
         private void insert_button_Click(object sender, EventArgs e) {
-            ORMBase.DMLDatas datas = ORMBase.Instance.GenerateRandomProductItem();
-            bool result = ORMBase.Instance.Insert_DetailedCalories(datas);
+            ORMBase.DMLDatas datas = new ORMBase.DMLDatas();
+            if (AutoProduct_checkBox.Checked) {
+                datas = ORMBase.Instance.GenerateRandomProductItem();
+            }
+            else {
+                datas.ID = (int)ID_numericUpDown.Value;
+                datas.Date = "\'" + dateTimePicker.Value.ToString().Remove(10).Replace('.', '/') + "\'";
+                datas.ProductName = $"\'{pName_textBox.Text}\'";
+                datas.Portion = (int)portion_numericUpDown.Value;
+                datas.Amount = (int)amount_numericUpDown.Value;
+                datas.Calorie = double.Parse(calorie_textBox.Text);
+                datas.Protein = double.Parse(calorie_textBox.Text);
+                datas.Carbohydrate = double.Parse(calorie_textBox.Text);
+                datas.Fat = double.Parse(fat_textBox.Text);
+                datas.Fiber = double.Parse(fiber_textBox.Text);
+                datas.Cholesterol = double.Parse(cholesterol_textBox.Text);
+                datas.Potassium = double.Parse(potassium_textBox.Text);
+                datas.Sodium = double.Parse(sodium_textBox.Text);
+            }
 
-            MessageBox.Show($"Insert işlemi {result}");
+            bool result = ORMBase.Instance.Insert_DetailedCalories(datas);
+            if (refresh_checkBox.Checked)
+                refresh_button.PerformClick();
+            //MessageBox.Show($"Insert işlemi {result}");
         }
 
         private void delete_button_Click(object sender, EventArgs e) {
@@ -90,11 +111,14 @@ namespace CalculateCalories
                 return;
             }
 
-            int selectedRowID = (int) dataGridView1.Rows[selectedRow].Cells["ID"].Value;
+            int selectedRowID = (int)dataGridView1.Rows[selectedRow].Cells["ID"].Value;
             bool result = ORMBase.Instance.Delete_DetailedCalories(selectedRowID);
             dataGridView1.Rows.RemoveAt(selectedRow);
             dataGridView1.ClearSelection();
-            MessageBox.Show($"Silme islemi {result}");
+
+            if (refresh_checkBox.Checked)
+                refresh_button.PerformClick();
+            //MessageBox.Show($"Silme islemi {result}");
         }
 
         private string GetInfoSelectedRow() {

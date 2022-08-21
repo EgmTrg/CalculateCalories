@@ -57,7 +57,7 @@ namespace CalculateCalories.ORM
         public bool Insert_DetailedCalories(DMLDatas datas) {
             string query_Columns = "(";
             string query_Values = " Values(";
-            SqlCommand cmd = new SqlCommand("Insert Into DetailedCalories");
+            SqlCommand cmd = new SqlCommand("Insert Into DetailedCalories", Tools.Connection);
 
             foreach (var item in typeof(DMLDatas).GetFields(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public)) {
                 query_Columns += item.Name + ",";
@@ -72,7 +72,6 @@ namespace CalculateCalories.ORM
             //System.Windows.Forms.MessageBox.Show(cmd.CommandText);
 
             Tools.Connection.Open();
-            cmd.Connection = Tools.Connection;
             bool result = cmd.ExecuteNonQuery() >= 1 ? true : false;
             Tools.Connection.Close();
             return result;
@@ -80,7 +79,15 @@ namespace CalculateCalories.ORM
 
         public bool Update_DetailedCalories() { return false; }
 
-        public bool Delete_DetailedCalories() { return false; }
+        public bool Delete_DetailedCalories(int ID) {
+            string query = "Delete from DetailedCalories where ID = " + ID.ToString();
+            SqlCommand cmd = new SqlCommand(query, Tools.Connection);
+            
+            Tools.Connection.Open();
+            bool result = cmd.ExecuteNonQuery() >= 1 ? true : false;
+            Tools.Connection.Close();
+            return result;
+        }
         #endregion
 
         #region TEMP
@@ -88,6 +95,7 @@ namespace CalculateCalories.ORM
             Random rand = new Random();
             DMLDatas data = new DMLDatas();
 
+            data.ID = rand.Next(9000, 10000);
             data.Date = "\'" + DateTime.Now.ToString().Remove(10).Replace('.', '/') + "\'";
             data.ProductName = "\'TEST URUN\'";
             data.Portion = rand.Next(1, 3);

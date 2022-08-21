@@ -34,6 +34,8 @@
             this.open_ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.insert_button = new System.Windows.Forms.Button();
             this.refresh_button = new System.Windows.Forms.Button();
+            this.delete_button = new System.Windows.Forms.Button();
+            this.getSelectedRowIndex_button = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.dataGirdView_contextMenuStrip.SuspendLayout();
@@ -71,21 +73,21 @@
             // refresh_ToolStripMenuItem
             // 
             this.refresh_ToolStripMenuItem.Name = "refresh_ToolStripMenuItem";
-            this.refresh_ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.refresh_ToolStripMenuItem.Size = new System.Drawing.Size(105, 22);
             this.refresh_ToolStripMenuItem.Text = "Yenile";
             this.refresh_ToolStripMenuItem.Click += new System.EventHandler(this.refresh_button_Click);
             // 
             // delete_ToolStripMenuItem
             // 
             this.delete_ToolStripMenuItem.Name = "delete_ToolStripMenuItem";
-            this.delete_ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.delete_ToolStripMenuItem.Size = new System.Drawing.Size(105, 22);
             this.delete_ToolStripMenuItem.Text = "Sil";
             this.delete_ToolStripMenuItem.Click += new System.EventHandler(this.delete_ToolStripMenuItem_Click);
             // 
             // open_ToolStripMenuItem
             // 
             this.open_ToolStripMenuItem.Name = "open_ToolStripMenuItem";
-            this.open_ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.open_ToolStripMenuItem.Size = new System.Drawing.Size(105, 22);
             this.open_ToolStripMenuItem.Text = "Aç";
             this.open_ToolStripMenuItem.Click += new System.EventHandler(this.open_ToolStripMenuItem_Click);
             // 
@@ -109,11 +111,33 @@
             this.refresh_button.UseVisualStyleBackColor = true;
             this.refresh_button.Click += new System.EventHandler(this.refresh_button_Click);
             // 
+            // delete_button
+            // 
+            this.delete_button.Location = new System.Drawing.Point(914, 43);
+            this.delete_button.Name = "delete_button";
+            this.delete_button.Size = new System.Drawing.Size(156, 23);
+            this.delete_button.TabIndex = 8;
+            this.delete_button.Text = "Delete Selected";
+            this.delete_button.UseVisualStyleBackColor = true;
+            this.delete_button.Click += new System.EventHandler(this.delete_button_Click);
+            // 
+            // getSelectedRowIndex_button
+            // 
+            this.getSelectedRowIndex_button.Location = new System.Drawing.Point(914, 14);
+            this.getSelectedRowIndex_button.Name = "getSelectedRowIndex_button";
+            this.getSelectedRowIndex_button.Size = new System.Drawing.Size(156, 23);
+            this.getSelectedRowIndex_button.TabIndex = 9;
+            this.getSelectedRowIndex_button.Text = "Seçili Satır Numarası";
+            this.getSelectedRowIndex_button.UseVisualStyleBackColor = true;
+            this.getSelectedRowIndex_button.Click += new System.EventHandler(this.getSelectedRowIndex_button_Click);
+            // 
             // DetailedForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1082, 497);
+            this.Controls.Add(this.getSelectedRowIndex_button);
+            this.Controls.Add(this.delete_button);
             this.Controls.Add(this.refresh_button);
             this.Controls.Add(this.insert_button);
             this.Controls.Add(this.panel1);
@@ -139,6 +163,8 @@
         private System.Windows.Forms.ToolStripMenuItem refresh_ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem delete_ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem open_ToolStripMenuItem;
+        private System.Windows.Forms.Button delete_button;
+        private System.Windows.Forms.Button getSelectedRowIndex_button;
     }
 }
 

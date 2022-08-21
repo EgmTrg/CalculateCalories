@@ -35,6 +35,10 @@ namespace CalculateCalories
             MessageBox.Show($"Insert işlemi {result}");
         }
 
+        private void delete_button_Click(object sender, EventArgs e) {
+            DeleteSelectedRow_Single();
+        }
+
         private void refresh_button_Click(object sender, EventArgs e) {
             dataGridView1.DataSource = ORMBase.Instance.Select_DetailedCalories().Tables[0];
         }
@@ -45,13 +49,14 @@ namespace CalculateCalories
 
 
         private void delete_ToolStripMenuItem_Click(object sender, EventArgs e) {
-            DeleteSelectedRow_Single(e);
+            DeleteSelectedRow_Single();
         }
 
         private void open_ToolStripMenuItem_Click(object sender, EventArgs e) {
             string info = GetInfoSelectedRow();
             MessageBox.Show(info, "Satır Bilgilendirmesi!", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
+
         #endregion
 
         #region Custom Methods
@@ -78,10 +83,18 @@ namespace CalculateCalories
             dataGridView1.Rows[hit.RowIndex].Selected = true;
         }
 
-        private void DeleteSelectedRow_Single(EventArgs e) {
-            int selectedRow = dataGridView1.Rows.GetFirstRow(DataGridViewElementStates.Selected);
+        private void DeleteSelectedRow_Single() {
+            int selectedRow = GetSelectedRowInDataGridView();
+            if (selectedRow == -1) {
+                MessageBox.Show("Veri silmek için satır seçmeniz gerekmektedir.", "Satır Seç", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+                return;
+            }
+
+            int selectedRowID = (int) dataGridView1.Rows[selectedRow].Cells["ID"].Value;
+            bool result = ORMBase.Instance.Delete_DetailedCalories(selectedRowID);
             dataGridView1.Rows.RemoveAt(selectedRow);
             dataGridView1.ClearSelection();
+            MessageBox.Show($"Silme islemi {result}");
         }
 
         private string GetInfoSelectedRow() {
@@ -93,5 +106,9 @@ namespace CalculateCalories
             return info;
         }
         #endregion
+
+        private void getSelectedRowIndex_button_Click(object sender, EventArgs e) {
+            MessageBox.Show(GetSelectedRowInDataGridView().ToString());
+        }
     }
 }

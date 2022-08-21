@@ -28,11 +28,10 @@
             this.components = new System.ComponentModel.Container();
             this.panel1 = new System.Windows.Forms.Panel();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.Check = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.dataGirdView_contextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.testToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.getInfoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.refresh_ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.delete_ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.open_ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.insert_button = new System.Windows.Forms.Button();
             this.refresh_button = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
@@ -52,8 +51,6 @@
             // dataGridView1
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Check});
             this.dataGridView1.ContextMenuStrip = this.dataGirdView_contextMenuStrip;
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView1.Location = new System.Drawing.Point(0, 0);
@@ -62,45 +59,35 @@
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dataGridView1_MouseDown);
             // 
-            // Check
-            // 
-            this.Check.FillWeight = 30F;
-            this.Check.HeaderText = "";
-            this.Check.Name = "Check";
-            this.Check.Width = 30;
-            // 
             // dataGirdView_contextMenuStrip
             // 
             this.dataGirdView_contextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.testToolStripMenuItem,
-            this.deleteToolStripMenuItem,
-            this.getInfoToolStripMenuItem});
+            this.refresh_ToolStripMenuItem,
+            this.delete_ToolStripMenuItem,
+            this.open_ToolStripMenuItem});
             this.dataGirdView_contextMenuStrip.Name = "dataGirdView_contextMenuStrip";
-            this.dataGirdView_contextMenuStrip.Size = new System.Drawing.Size(117, 70);
-            this.dataGirdView_contextMenuStrip.Text = "Duzenle";
+            this.dataGirdView_contextMenuStrip.Size = new System.Drawing.Size(106, 70);
             // 
-            // testToolStripMenuItem
+            // refresh_ToolStripMenuItem
             // 
-            this.testToolStripMenuItem.Enabled = false;
-            this.testToolStripMenuItem.Name = "testToolStripMenuItem";
-            this.testToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.testToolStripMenuItem.Text = "Yenile";
+            this.refresh_ToolStripMenuItem.Name = "refresh_ToolStripMenuItem";
+            this.refresh_ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.refresh_ToolStripMenuItem.Text = "Yenile";
+            this.refresh_ToolStripMenuItem.Click += new System.EventHandler(this.refresh_button_Click);
             // 
-            // deleteToolStripMenuItem
+            // delete_ToolStripMenuItem
             // 
-            this.deleteToolStripMenuItem.Enabled = false;
-            this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.deleteToolStripMenuItem.Text = "Sil";
-            this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
+            this.delete_ToolStripMenuItem.Name = "delete_ToolStripMenuItem";
+            this.delete_ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.delete_ToolStripMenuItem.Text = "Sil";
+            this.delete_ToolStripMenuItem.Click += new System.EventHandler(this.delete_ToolStripMenuItem_Click);
             // 
-            // getInfoToolStripMenuItem
+            // open_ToolStripMenuItem
             // 
-            this.getInfoToolStripMenuItem.Enabled = false;
-            this.getInfoToolStripMenuItem.Name = "getInfoToolStripMenuItem";
-            this.getInfoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.getInfoToolStripMenuItem.Text = "Bilgi ver";
-            this.getInfoToolStripMenuItem.Click += new System.EventHandler(this.getInfoToolStripMenuItem_Click);
+            this.open_ToolStripMenuItem.Name = "open_ToolStripMenuItem";
+            this.open_ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.open_ToolStripMenuItem.Text = "Aç";
+            this.open_ToolStripMenuItem.Click += new System.EventHandler(this.open_ToolStripMenuItem_Click);
             // 
             // insert_button
             // 
@@ -146,13 +133,12 @@
         #endregion
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn Check;
         private System.Windows.Forms.Button insert_button;
         private System.Windows.Forms.Button refresh_button;
         private System.Windows.Forms.ContextMenuStrip dataGirdView_contextMenuStrip;
-        private System.Windows.Forms.ToolStripMenuItem testToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem getInfoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem refresh_ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem delete_ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem open_ToolStripMenuItem;
     }
 }
 

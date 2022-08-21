@@ -11,22 +11,31 @@ namespace CalculateCalories
         }
 
         #region Properties
+        /*  ------------------------------------------------------------------------------
+         *                              PROPERTY REGION
+         *  ------------------------------------------------------------------------------ */
+
         public int GetSelectedRowInDataGridView() => dataGridView1.Rows.GetFirstRow(DataGridViewElementStates.Selected);
+
         #endregion
 
         #region Events
-        private void DetailedForm_Load(object sender, System.EventArgs e) {
+        /*  ------------------------------------------------------------------------------
+         *                              EVENTS REGION
+         *  ------------------------------------------------------------------------------ */
+
+        private void DetailedForm_Load(object sender, EventArgs e) {
             refresh_button.PerformClick();
         }
 
-        private void insert_button_Click(object sender, System.EventArgs e) {
+        private void insert_button_Click(object sender, EventArgs e) {
             ORMBase.DMLDatas datas = ORMBase.Instance.GenerateRandomProductItem();
             bool result = ORMBase.Instance.Insert_DetailedCalories(datas);
 
             MessageBox.Show($"Insert işlemi {result}");
         }
 
-        private void refresh_button_Click(object sender, System.EventArgs e) {
+        private void refresh_button_Click(object sender, EventArgs e) {
             dataGridView1.DataSource = ORMBase.Instance.Select_DetailedCalories().Tables[0];
         }
 
@@ -34,12 +43,22 @@ namespace CalculateCalories
             OpenContextMenuStripItem(e);
         }
 
-        private void deleteToolStripMenuItem_Click(object sender, EventArgs e) {
+
+        private void delete_ToolStripMenuItem_Click(object sender, EventArgs e) {
             DeleteSelectedRow_Single(e);
+        }
+
+        private void open_ToolStripMenuItem_Click(object sender, EventArgs e) {
+            string info = GetInfoSelectedRow();
+            MessageBox.Show(info, "Satır Bilgilendirmesi!", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
         #endregion
 
         #region Custom Methods
+        /*  ------------------------------------------------------------------------------
+         *                              CUSTOM METHODS REGION
+         *  ------------------------------------------------------------------------------ */
+
         private void OpenContextMenuStripItem(MouseEventArgs e) {
             if (e.Button != MouseButtons.Right)
                 return;
@@ -47,8 +66,6 @@ namespace CalculateCalories
             var hit = dataGridView1.HitTest(e.X, e.Y);
             if (hit.Type == DataGridViewHitTestType.Cell) {
                 SelectRowWhenClicked(e);
-                if ((hit.ColumnIndex == dataGridView1.Columns.Count - 1) && (hit.Type == DataGridViewHitTestType.ColumnHeader))
-                dataGirdView_contextMenuStrip.Show();
             }
         }
 
@@ -66,17 +83,15 @@ namespace CalculateCalories
             dataGridView1.Rows.RemoveAt(selectedRow);
             dataGridView1.ClearSelection();
         }
-        #endregion
 
-        private void getInfoToolStripMenuItem_Click(object sender, EventArgs e) {
+        private string GetInfoSelectedRow() {
             int selectedRow = GetSelectedRowInDataGridView();
-            string values = "";
+            string info = "";
 
-            for (int i = 0; i < dataGridView1.Columns.Count; i++) {
-                values += dataGridView1.Columns[i].Name + ": " + dataGridView1.Rows[selectedRow].Cells[i].Value.ToString() + '\n';
-            }
-
-            MessageBox.Show(values);
+            for (int i = 1; i < dataGridView1.Columns.Count; i++)
+                info += dataGridView1.Columns[i].Name + ": " + dataGridView1.Rows[selectedRow].Cells[i].Value.ToString() + '\n';
+            return info;
         }
+        #endregion
     }
 }

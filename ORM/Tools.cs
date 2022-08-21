@@ -5,7 +5,7 @@ namespace CalculateCalories.ORM
 {
     internal static class Tools
     {
-        const string connectionString = "Server=EGEMEN-PC;Database=CalculateCaliries;Trusted_Connection=True;";
+        const string connectionString = "Server=EGEMEN-PC;Database=CalculateCalories;Trusted_Connection=True;";
         private static SqlConnection _connection;
 
         public static bool HasParameter(this SqlCommand command) => command.Parameters.Count <= 0;
@@ -49,7 +49,5 @@ namespace CalculateCalories.ORM
                 Message = "Hata!",
             };
         }
-
-
     }
 }

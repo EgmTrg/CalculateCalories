@@ -1,77 +1,108 @@
 ﻿using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.Reflection;
 
 namespace CalculateCalories.ORM
 {
     public class ORMBase
     {
-
         private static ORMBase instance;
-
         public static ORMBase Instance
         {
             get {
                 if (instance == null)
                     instance = new ORMBase();
-                return null;
+                return instance;
             }
         }
-
         public enum OperationType { SELECT, INSERT, UPDATE, DELETE }
 
         public struct DMLDatas
         {
-            public OperationType opType;
+            //public OperationType opType;
             public int ID;
-            public DateTime date;
-            public string pName;
-            public int portion;
-            public int amount;
-            public double calorie;
-            public double protein;
-            public double carbohydrate;
-            public double fat;
-            public double fiber;
-            public double cholesterol;
-            public double sodium;
-            public double potassium;
+            public string Date;
+            public string ProductName;
+            public int Portion;
+            public int Amount;
+            public double Calorie;
+            public double Protein;
+            public double Carbohydrate;
+            public double Fat;
+            public double Fiber;
+            public double Cholesterol;
+            public double Sodium;
+            public double Potassium;
         }
 
-        public SqlDataAdapter GetPivotTable() {
-            SqlCommand cmd = new SqlCommand("GetPivotTable");
-            cmd.Connection = Tools.Connection;
-            return new SqlDataAdapter(cmd);
+        public DataSet GetPivotTable() {
+            return null;
         }
 
-        public DataSet DMLOperations(DMLDatas dmldatas) {
-            SqlCommand sqlComm = new SqlCommand("DMLOperations", Tools.Connection);
+        public DataSet GetDetailedTable() {
+            return null;
+        }
+
+        #region DMLOperations
+        public DataSet Select_DetailedCalories() {
+            SqlCommand cmd = new SqlCommand("Select * from DetailedCalories ORDER BY Date", Tools.Connection);
             DataSet dataSet = new DataSet();
+            SqlDataAdapter adapter = new SqlDataAdapter(cmd);
 
-            sqlComm.Parameters.AddWithValue("@OPERATION", dmldatas.opType.ToString());
-            sqlComm.Parameters.AddWithValue("@ID", dmldatas.ID);
-            sqlComm.Parameters.AddWithValue("@date", dmldatas.date);
-            sqlComm.Parameters.AddWithValue("@pName", dmldatas.pName);
-            sqlComm.Parameters.AddWithValue("@portion", dmldatas.portion);
-            sqlComm.Parameters.AddWithValue("@amount", dmldatas.amount);
-            sqlComm.Parameters.AddWithValue("@calorie", dmldatas.calorie);
-            sqlComm.Parameters.AddWithValue("@protein", dmldatas.protein);
-            sqlComm.Parameters.AddWithValue("@carbohydrate", dmldatas.carbohydrate);
-            sqlComm.Parameters.AddWithValue("@fat", dmldatas.fat);
-            sqlComm.Parameters.AddWithValue("@fiber", dmldatas.fiber);
-            sqlComm.Parameters.AddWithValue("@cholesterol", dmldatas.cholesterol);
-            sqlComm.Parameters.AddWithValue("@sodium", dmldatas.sodium);
-            sqlComm.Parameters.AddWithValue("@potassium", dmldatas.potassium);
-
-            sqlComm.CommandType = CommandType.StoredProcedure;
-
-            SqlDataAdapter adapter = new SqlDataAdapter();
-            adapter.SelectCommand = sqlComm;
             adapter.Fill(dataSet);
-
             return dataSet;
         }
 
-        
+        public bool Insert_DetailedCalories(DMLDatas datas) {
+            string query_Columns = "(";
+            string query_Values = " Values(";
+            SqlCommand cmd = new SqlCommand("Insert Into DetailedCalories");
+
+            foreach (var item in typeof(DMLDatas).GetFields(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public)) {
+                query_Columns += item.Name + ",";
+                query_Values += item.GetValue(datas).ToString().Replace(',', '.') + ",";
+            }
+
+            // En sonda kalan virgülü silmek için Remove yapıyoruz.
+            query_Columns = query_Columns.Remove(query_Columns.Length - 1) + ")";
+            query_Values = query_Values.Remove(query_Values.Length - 1) + ")";
+
+            cmd.CommandText += query_Columns + query_Values;
+            //System.Windows.Forms.MessageBox.Show(cmd.CommandText);
+
+            Tools.Connection.Open();
+            cmd.Connection = Tools.Connection;
+            bool result = cmd.ExecuteNonQuery() >= 1 ? true : false;
+            Tools.Connection.Close();
+            return result;
+        }
+
+        public bool Update_DetailedCalories() { return false; }
+
+        public bool Delete_DetailedCalories() { return false; }
+        #endregion
+
+        #region TEMP
+        public DMLDatas GenerateRandomProductItem() {
+            Random rand = new Random();
+            DMLDatas data = new DMLDatas();
+
+            data.Date = "\'" + DateTime.Now.ToString().Remove(10).Replace('.', '/') + "\'";
+            data.ProductName = "\'TEST URUN\'";
+            data.Portion = rand.Next(1, 3);
+            data.Amount = rand.Next(1, 3);
+            data.Calorie = Math.Round(rand.NextDouble() * 100, 2);
+            data.Protein = Math.Round(rand.NextDouble() * 100, 2);
+            data.Carbohydrate = Math.Round(rand.NextDouble() * 100, 2);
+            data.Fat = Math.Round(rand.NextDouble() * 100, 2);
+            data.Fiber = Math.Round(rand.NextDouble() * 100, 2);
+            data.Cholesterol = Math.Round(rand.NextDouble() * 100, 2);
+            data.Sodium = Math.Round(rand.NextDouble() * 100, 2);
+            data.Potassium = Math.Round(rand.NextDouble() * 100, 2);
+
+            return data;
+        }
+        #endregion
     }
 }

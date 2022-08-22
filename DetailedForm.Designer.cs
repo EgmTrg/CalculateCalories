@@ -38,6 +38,7 @@
             this.getSelectedRowIndex_button = new System.Windows.Forms.Button();
             this.refresh_checkBox = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.ID_numericUpDown = new System.Windows.Forms.NumericUpDown();
             this.amount_numericUpDown = new System.Windows.Forms.NumericUpDown();
             this.label5 = new System.Windows.Forms.Label();
             this.portion_numericUpDown = new System.Windows.Forms.NumericUpDown();
@@ -68,16 +69,16 @@
             this.checkBox3 = new System.Windows.Forms.CheckBox();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.AutoProduct_checkBox = new System.Windows.Forms.CheckBox();
-            this.ID_numericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.update_button = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.dataGirdView_contextMenuStrip.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ID_numericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.amount_numericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.portion_numericUpDown)).BeginInit();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ID_numericUpDown)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -98,6 +99,7 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(1082, 357);
             this.dataGridView1.TabIndex = 0;
+            this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             this.dataGridView1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dataGridView1_MouseDown);
             // 
             // dataGirdView_contextMenuStrip
@@ -152,9 +154,9 @@
             // 
             // delete_button
             // 
-            this.delete_button.Location = new System.Drawing.Point(914, 58);
+            this.delete_button.Location = new System.Drawing.Point(995, 58);
             this.delete_button.Name = "delete_button";
-            this.delete_button.Size = new System.Drawing.Size(156, 36);
+            this.delete_button.Size = new System.Drawing.Size(75, 36);
             this.delete_button.TabIndex = 8;
             this.delete_button.Text = "Delete Selected";
             this.delete_button.UseVisualStyleBackColor = true;
@@ -201,6 +203,18 @@
             this.groupBox1.TabIndex = 12;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Olmasi Gerekenler";
+            // 
+            // ID_numericUpDown
+            // 
+            this.ID_numericUpDown.Location = new System.Drawing.Point(43, 69);
+            this.ID_numericUpDown.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.ID_numericUpDown.Name = "ID_numericUpDown";
+            this.ID_numericUpDown.Size = new System.Drawing.Size(100, 20);
+            this.ID_numericUpDown.TabIndex = 7;
             // 
             // amount_numericUpDown
             // 
@@ -486,17 +500,15 @@
             this.AutoProduct_checkBox.Text = "Otomatik Rastgele Ürün";
             this.AutoProduct_checkBox.UseVisualStyleBackColor = true;
             // 
-            // ID_numericUpDown
+            // update_button
             // 
-            this.ID_numericUpDown.Location = new System.Drawing.Point(43, 69);
-            this.ID_numericUpDown.Maximum = new decimal(new int[] {
-            10000,
-            0,
-            0,
-            0});
-            this.ID_numericUpDown.Name = "ID_numericUpDown";
-            this.ID_numericUpDown.Size = new System.Drawing.Size(100, 20);
-            this.ID_numericUpDown.TabIndex = 7;
+            this.update_button.Location = new System.Drawing.Point(914, 58);
+            this.update_button.Name = "update_button";
+            this.update_button.Size = new System.Drawing.Size(75, 36);
+            this.update_button.TabIndex = 7;
+            this.update_button.Text = "Update";
+            this.update_button.UseVisualStyleBackColor = true;
+            this.update_button.Click += new System.EventHandler(this.insert_button_Click);
             // 
             // DetailedForm
             // 
@@ -509,6 +521,7 @@
             this.Controls.Add(this.getSelectedRowIndex_button);
             this.Controls.Add(this.delete_button);
             this.Controls.Add(this.refresh_button);
+            this.Controls.Add(this.update_button);
             this.Controls.Add(this.insert_button);
             this.Controls.Add(this.panel1);
             this.MaximizeBox = false;
@@ -522,13 +535,13 @@
             this.dataGirdView_contextMenuStrip.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ID_numericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.amount_numericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.portion_numericUpDown)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ID_numericUpDown)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -577,6 +590,7 @@
         private System.Windows.Forms.CheckBox checkBox2;
         private System.Windows.Forms.CheckBox AutoProduct_checkBox;
         private System.Windows.Forms.NumericUpDown ID_numericUpDown;
+        private System.Windows.Forms.Button update_button;
     }
 }
 

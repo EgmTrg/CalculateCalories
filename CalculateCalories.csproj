@@ -89,7 +89,7 @@
     </Compile>
     <Compile Include="ORM\ORMBase.cs" />
     <Compile Include="ORM\Result.cs" />
-    <Compile Include="ORM\Tools.cs" />
+    <Compile Include="ORM\ORMTools.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="App.resx">

@@ -48,7 +48,7 @@ namespace CalculateCalories.ORM
         
         #region ForDetailedTable
         public DataSet Select_DetailedCalories() {
-            SqlCommand cmd = new SqlCommand("Select * from DetailedCalories ORDER BY Date", Tools.Connection);
+            SqlCommand cmd = new SqlCommand("Select * from DetailedCalories ORDER BY Date", ORMTools.Connection);
             DataSet dataSet = new DataSet();
             SqlDataAdapter adapter = new SqlDataAdapter(cmd);
 
@@ -59,7 +59,7 @@ namespace CalculateCalories.ORM
         public bool Insert_DetailedCalories(DMLDatas datas) {
             string query_Columns = "(";
             string query_Values = " Values(";
-            SqlCommand cmd = new SqlCommand("Insert Into DetailedCalories", Tools.Connection);
+            SqlCommand cmd = new SqlCommand("Insert Into DetailedCalories", ORMTools.Connection);
 
             foreach (var item in typeof(DMLDatas).GetFields(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public)) {
                 query_Columns += item.Name + ",";
@@ -73,9 +73,9 @@ namespace CalculateCalories.ORM
             cmd.CommandText += query_Columns + query_Values;
             //System.Windows.Forms.MessageBox.Show(cmd.CommandText);
 
-            Tools.Connection.Open();
+            ORMTools.Connection.Open();
             bool result = cmd.ExecuteNonQuery() >= 1 ? true : false;
-            Tools.Connection.Close();
+            ORMTools.Connection.Close();
             return result;
         }
 
@@ -83,11 +83,11 @@ namespace CalculateCalories.ORM
 
         public bool Delete_DetailedCalories(int ID) {
             string query = "Delete from DetailedCalories where ID = " + ID.ToString();
-            SqlCommand cmd = new SqlCommand(query, Tools.Connection);
+            SqlCommand cmd = new SqlCommand(query, ORMTools.Connection);
             
-            Tools.Connection.Open();
+            ORMTools.Connection.Open();
             bool result = cmd.ExecuteNonQuery() >= 1 ? true : false;
-            Tools.Connection.Close();
+            ORMTools.Connection.Close();
             return result;
         }
         #endregion
@@ -101,7 +101,7 @@ namespace CalculateCalories.ORM
                             "SUM(DetailedCalories.Portion) as \'Total Portion\' " +
                             "From DetailedCalories Group By DetailedCalories.Date";
 
-            SqlCommand cmd = new SqlCommand(query, Tools.Connection);
+            SqlCommand cmd = new SqlCommand(query, ORMTools.Connection);
             DataSet dataSet = new DataSet();
             SqlDataAdapter adapter = new SqlDataAdapter(cmd);
             adapter.Fill(dataSet);

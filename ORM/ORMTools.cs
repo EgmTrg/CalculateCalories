@@ -3,7 +3,7 @@ using System.Data.SqlClient;
 
 namespace CalculateCalories.ORM
 {
-    internal static class Tools
+    internal static class ORMTools
     {
         const string connectionString = "Server=EGEMEN-PC;Database=CalculateCalories;Trusted_Connection=True;";
         private static SqlConnection _connection;

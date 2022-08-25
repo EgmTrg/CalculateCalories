@@ -45,6 +45,8 @@ namespace CalculateCalories.ORM
         }
 
         #region DMLOperations
+        
+        #region ForDetailedTable
         public DataSet Select_DetailedCalories() {
             SqlCommand cmd = new SqlCommand("Select * from DetailedCalories ORDER BY Date", Tools.Connection);
             DataSet dataSet = new DataSet();
@@ -88,6 +90,25 @@ namespace CalculateCalories.ORM
             Tools.Connection.Close();
             return result;
         }
+        #endregion
+
+        #region PivotTable
+        public DataSet Select_PivotCalories() {
+            string query =  "Select Date, " +
+                            "SUM(DetailedCalories.Calorie) as \'Total Calorie\', " +
+                            "SUM(DetailedCalories.Protein) as \'Total Protein\', " +
+                            "SUM(DetailedCalories.Fat) as \'Total Fat\', " +
+                            "SUM(DetailedCalories.Portion) as \'Total Portion\' " +
+                            "From DetailedCalories Group By DetailedCalories.Date";
+
+            SqlCommand cmd = new SqlCommand(query, Tools.Connection);
+            DataSet dataSet = new DataSet();
+            SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+            adapter.Fill(dataSet);
+            return dataSet;
+        }
+        #endregion
+
         #endregion
 
         #region TEMP

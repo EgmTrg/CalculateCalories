@@ -41,9 +41,7 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.veritabaniToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.chooseDatabase_ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.özelliklerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openDetailedTable_ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -138,6 +136,7 @@
             this.refresh_Button.TabIndex = 1;
             this.refresh_Button.Text = "Yenile";
             this.refresh_Button.UseVisualStyleBackColor = true;
+            this.refresh_Button.Click += new System.EventHandler(this.refresh_Button_Click);
             // 
             // groupBox1
             // 
@@ -211,33 +210,19 @@
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.veritabaniToolStripMenuItem});
+            this.openDetailedTable_ToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(654, 24);
             this.menuStrip1.TabIndex = 8;
             this.menuStrip1.Text = "menuStrip1";
             // 
-            // veritabaniToolStripMenuItem
+            // openDetailedTable_ToolStripMenuItem
             // 
-            this.veritabaniToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.chooseDatabase_ToolStripMenuItem,
-            this.özelliklerToolStripMenuItem});
-            this.veritabaniToolStripMenuItem.Name = "veritabaniToolStripMenuItem";
-            this.veritabaniToolStripMenuItem.Size = new System.Drawing.Size(71, 20);
-            this.veritabaniToolStripMenuItem.Text = "Veritabani";
-            // 
-            // chooseDatabase_ToolStripMenuItem
-            // 
-            this.chooseDatabase_ToolStripMenuItem.Name = "chooseDatabase_ToolStripMenuItem";
-            this.chooseDatabase_ToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
-            this.chooseDatabase_ToolStripMenuItem.Text = "Kullanmak için seç";
-            // 
-            // özelliklerToolStripMenuItem
-            // 
-            this.özelliklerToolStripMenuItem.Name = "özelliklerToolStripMenuItem";
-            this.özelliklerToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
-            this.özelliklerToolStripMenuItem.Text = "Özellikler";
+            this.openDetailedTable_ToolStripMenuItem.Name = "openDetailedTable_ToolStripMenuItem";
+            this.openDetailedTable_ToolStripMenuItem.Size = new System.Drawing.Size(169, 20);
+            this.openDetailedTable_ToolStripMenuItem.Text = "Open Detailed Calories Table";
+            this.openDetailedTable_ToolStripMenuItem.Click += new System.EventHandler(this.openDetailedTable_ToolStripMenuItem_Click);
             // 
             // App
             // 
@@ -286,8 +271,6 @@
         private System.Windows.Forms.Button refresh_Button;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem veritabaniToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem chooseDatabase_ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem özelliklerToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem openDetailedTable_ToolStripMenuItem;
     }
 }

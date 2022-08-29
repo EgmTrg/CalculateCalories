@@ -70,6 +70,8 @@
             this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.AutoProduct_checkBox = new System.Windows.Forms.CheckBox();
             this.update_button = new System.Windows.Forms.Button();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.seciliSatirNumarasiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.dataGirdView_contextMenuStrip.SuspendLayout();
@@ -79,6 +81,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.portion_numericUpDown)).BeginInit();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -96,6 +99,7 @@
             this.dataGridView1.ContextMenuStrip = this.dataGirdView_contextMenuStrip;
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView1.Location = new System.Drawing.Point(0, 0);
+            this.dataGridView1.MultiSelect = false;
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(1082, 357);
             this.dataGridView1.TabIndex = 0;
@@ -170,7 +174,6 @@
             this.getSelectedRowIndex_button.TabIndex = 9;
             this.getSelectedRowIndex_button.Text = "Seçili Satır Numarası";
             this.getSelectedRowIndex_button.UseVisualStyleBackColor = true;
-            this.getSelectedRowIndex_button.Click += new System.EventHandler(this.getSelectedRowIndex_button_Click);
             // 
             // refresh_checkBox
             // 
@@ -510,6 +513,20 @@
             this.update_button.UseVisualStyleBackColor = true;
             this.update_button.Click += new System.EventHandler(this.insert_button_Click);
             // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.seciliSatirNumarasiToolStripMenuItem});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(181, 48);
+            // 
+            // seciliSatirNumarasiToolStripMenuItem
+            // 
+            this.seciliSatirNumarasiToolStripMenuItem.Name = "seciliSatirNumarasiToolStripMenuItem";
+            this.seciliSatirNumarasiToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.seciliSatirNumarasiToolStripMenuItem.Text = "Secili satir numarasi";
+            this.seciliSatirNumarasiToolStripMenuItem.Click += new System.EventHandler(this.seciliSatirNumarasiToolStripMenuItem_Click);
+            // 
             // DetailedForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -542,6 +559,7 @@
             this.groupBox2.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -591,6 +609,8 @@
         private System.Windows.Forms.CheckBox AutoProduct_checkBox;
         private System.Windows.Forms.NumericUpDown ID_numericUpDown;
         private System.Windows.Forms.Button update_button;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem seciliSatirNumarasiToolStripMenuItem;
     }
 }
 

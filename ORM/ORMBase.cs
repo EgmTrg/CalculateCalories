@@ -93,13 +93,15 @@ namespace CalculateCalories.ORM
         #endregion
 
         #region PivotTable
-        public DataSet Select_PivotCalories() {
-            string query =  "Select Date, " +
+        public DataSet Select_PivotCalories(string begin_dateTime, string end_dateTime) {
+            string query = "Select DetailedCalories.Date, " +
                             "SUM(DetailedCalories.Calorie) as \'Total Calorie\', " +
                             "SUM(DetailedCalories.Protein) as \'Total Protein\', " +
                             "SUM(DetailedCalories.Fat) as \'Total Fat\', " +
                             "SUM(DetailedCalories.Portion) as \'Total Portion\' " +
-                            "From DetailedCalories Group By DetailedCalories.Date";
+                            "From DetailedCalories " +
+                            //$"Where Date = {begin_dateTime}" +
+                            "Group By DetailedCalories.Date";
 
             SqlCommand cmd = new SqlCommand(query, ORMTools.Connection);
             DataSet dataSet = new DataSet();

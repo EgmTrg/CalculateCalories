@@ -10,15 +10,6 @@ namespace CalculateCalories
             InitializeComponent();
         }
 
-        #region Properties
-        /*  ------------------------------------------------------------------------------
-         *                              PROPERTY REGION
-         *  ------------------------------------------------------------------------------ */
-
-        public int GetSelectedRowInDataGridView() => dataGridView1.Rows.GetFirstRow(DataGridViewElementStates.Selected);
-
-        #endregion
-
         #region Events
         /*  ------------------------------------------------------------------------------
          *                              EVENTS REGION
@@ -52,7 +43,6 @@ namespace CalculateCalories
             bool result = ORMBase.Instance.Insert_DetailedCalories(datas);
             if (refresh_checkBox.Checked)
                 refresh_button.PerformClick();
-            //MessageBox.Show($"Insert işlemi {result}");
         }
 
         private void delete_button_Click(object sender, EventArgs e) {
@@ -64,29 +54,25 @@ namespace CalculateCalories
         }
 
         private void dataGridView1_MouseDown(object sender, MouseEventArgs e) {
-            //OpenContextMenuStripItem(e);
-            SelectRowWhenClicked(e);
+            var hit = dataGridView1.HitTest(e.X, e.Y);
+            if (hit.Type == DataGridViewHitTestType.Cell) {
+                dataGridView1.ClearSelection();
+                dataGridView1.Rows[hit.RowIndex].Selected = true;
+            }
         }
-
 
         private void delete_ToolStripMenuItem_Click(object sender, EventArgs e) {
             DeleteSelectedRow_Single();
         }
 
-        private void open_ToolStripMenuItem_Click(object sender, EventArgs e) {
-            string info = GetInfoSelectedRow();
-            MessageBox.Show(info, "Satır Bilgilendirmesi!", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
-
-        private void getSelectedRowIndex_button_Click(object sender, EventArgs e) {
-            MessageBox.Show(GetSelectedRowInDataGridView().ToString());
-        }
-
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e) {
             DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
 
+            if (row.DataBoundItem == null)
+                return;
+
             ID_numericUpDown.Value = (int)row.Cells[0].Value;
-            dateTimePicker.Value = StringToDateTime(row.Cells[1].Value.ToString());
+            dateTimePicker.Value = Tools.StringToDateTime(row.Cells[1].Value.ToString());
             pName_textBox.Text = row.Cells[2].Value.ToString();
             portion_numericUpDown.Value = int.Parse(row.Cells[3].Value.ToString());
             amount_numericUpDown.Value = int.Parse(row.Cells[4].Value.ToString());
@@ -106,19 +92,8 @@ namespace CalculateCalories
          *                              CUSTOM METHODS REGION
          *  ------------------------------------------------------------------------------ */
 
-        private void SelectRowWhenClicked(MouseEventArgs e) {
-            /*if (e.Button != MouseButtons.Right)
-                return;*/
-
-            var hit = dataGridView1.HitTest(e.X, e.Y);
-            if (hit.Type == DataGridViewHitTestType.Cell) {
-                dataGridView1.ClearSelection();
-                dataGridView1.Rows[hit.RowIndex].Selected = true;
-            }
-        }
-
         private void DeleteSelectedRow_Single() {
-            int selectedRow = GetSelectedRowInDataGridView();
+            int selectedRow = Tools.GetSelectedRowInDataGridView(dataGridView1);
             if (selectedRow == -1) {
                 MessageBox.Show("Veri silmek için satır seçmeniz gerekmektedir.", "Satır Seç", MessageBoxButtons.OK, MessageBoxIcon.Hand);
                 return;
@@ -131,25 +106,29 @@ namespace CalculateCalories
 
             if (refresh_checkBox.Checked)
                 refresh_button.PerformClick();
-            //MessageBox.Show($"Silme islemi {result}");
         }
 
         private string GetInfoSelectedRow() {
-            int selectedRow = GetSelectedRowInDataGridView();
+            int selectedRow = Tools.GetSelectedRowInDataGridView(dataGridView1);
             string info = "";
 
             for (int i = 1; i < dataGridView1.Columns.Count; i++)
                 info += dataGridView1.Columns[i].Name + ": " + dataGridView1.Rows[selectedRow].Cells[i].Value.ToString() + '\n';
             return info;
         }
+        #endregion
 
-        public static DateTime StringToDateTime(string date) {
-            string[] splitted_date = date.Split('/');
-            int day = int.Parse(splitted_date[0]);
-            int mounth = int.Parse(splitted_date[1]);
-            int year = int.Parse(splitted_date[2]);
-            return new DateTime(year, mounth, day);
+        #region TEMP
+
+        private void open_ToolStripMenuItem_Click(object sender, EventArgs e) {
+            string info = GetInfoSelectedRow();
+            MessageBox.Show(info, "Satır Bilgilendirmesi!", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
+
+        private void seciliSatirNumarasiToolStripMenuItem_Click(object sender, EventArgs e) {
+            MessageBox.Show(Tools.GetSelectedRowInDataGridView(dataGridView1).ToString());
+        }
+
         #endregion
     }
 }

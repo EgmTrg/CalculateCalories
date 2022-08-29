@@ -24,10 +24,8 @@ namespace CalculateCalories
         }
 
         private void refresh_Button_Click(object sender, EventArgs e) {
-            string begin_date = Tools.DateToString(dateTimePicker1.Value),
-                    end_date = Tools.DateToString(dateTimePicker2.Value);
-
-            dataGridView1.DataSource = ORMBase.Instance.Select_PivotCalories(begin_date, end_date).Tables[0];
+            DateTime begin_date = dateTimePicker1.Value, end_date = dateTimePicker2.Value;
+            dataGridView1.DataSource = ORMBase.Instance.GetPivotTable(begin_date, end_date).Tables[0];
         }
         #endregion
     }

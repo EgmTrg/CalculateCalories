@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.Drawing;
 using System.Reflection;
 
 namespace CalculateCalories.ORM
@@ -16,7 +17,6 @@ namespace CalculateCalories.ORM
                 return instance;
             }
         }
-        public enum OperationType { SELECT, INSERT, UPDATE, DELETE }
 
         public struct DMLDatas
         {
@@ -36,8 +36,21 @@ namespace CalculateCalories.ORM
             public double Potassium;
         }
 
-        public DataSet GetPivotTable() {
-            return null;
+        public DataSet GetPivotTable(DateTime begin_date, DateTime end_date) {
+            string query = "Select DetailedCalories.Date," +
+                            "SUM(Calorie) as \'Total Calorie\'," +
+                            "SUM(Protein) as \'Total Protein\'," +
+                            "SUM(Fat) as \'Total Fat\'," +
+                            "SUM(Portion) as \'Total Portion\'" +
+                            "From DetailedCalories " +
+                           $"Where date Between {begin_date.ToSqlDate()} and {end_date.ToSqlDate()} " +
+                            "Group By [Date]";
+
+            SqlCommand cmd = new SqlCommand(query, ORMTools.Connection);
+            DataSet dataSet = new DataSet();
+            SqlDataAdapter adp = new SqlDataAdapter(cmd);
+            adp.Fill(dataSet);
+            return dataSet;
         }
 
         public DataSet GetDetailedTable() {
@@ -45,7 +58,7 @@ namespace CalculateCalories.ORM
         }
 
         #region DMLOperations
-        
+
         #region ForDetailedTable
         public DataSet Select_DetailedCalories() {
             SqlCommand cmd = new SqlCommand("Select * from DetailedCalories ORDER BY Date", ORMTools.Connection);
@@ -84,7 +97,7 @@ namespace CalculateCalories.ORM
         public bool Delete_DetailedCalories(int ID) {
             string query = "Delete from DetailedCalories where ID = " + ID.ToString();
             SqlCommand cmd = new SqlCommand(query, ORMTools.Connection);
-            
+
             ORMTools.Connection.Open();
             bool result = cmd.ExecuteNonQuery() >= 1 ? true : false;
             ORMTools.Connection.Close();
@@ -92,24 +105,6 @@ namespace CalculateCalories.ORM
         }
         #endregion
 
-        #region PivotTable
-        public DataSet Select_PivotCalories(string begin_dateTime, string end_dateTime) {
-            string query = "Select DetailedCalories.Date, " +
-                            "SUM(DetailedCalories.Calorie) as \'Total Calorie\', " +
-                            "SUM(DetailedCalories.Protein) as \'Total Protein\', " +
-                            "SUM(DetailedCalories.Fat) as \'Total Fat\', " +
-                            "SUM(DetailedCalories.Portion) as \'Total Portion\' " +
-                            "From DetailedCalories " +
-                            //$"Where Date = {begin_dateTime}" +
-                            "Group By DetailedCalories.Date";
-
-            SqlCommand cmd = new SqlCommand(query, ORMTools.Connection);
-            DataSet dataSet = new DataSet();
-            SqlDataAdapter adapter = new SqlDataAdapter(cmd);
-            adapter.Fill(dataSet);
-            return dataSet;
-        }
-        #endregion
 
         #endregion
 
@@ -119,7 +114,7 @@ namespace CalculateCalories.ORM
             DMLDatas data = new DMLDatas();
 
             data.ID = rand.Next(9000, 10000);
-            data.Date = "\'" + DateTime.Now.ToString().Remove(10).Replace('.', '/') + "\'";
+            data.Date = rand.RandomDate().ToSqlDate();
             data.ProductName = "\'TEST URUN\'";
             data.Portion = rand.Next(1, 3);
             data.Amount = rand.Next(1, 3);
@@ -134,6 +129,6 @@ namespace CalculateCalories.ORM
 
             return data;
         }
-        #endregion
     }
+    #endregion
 }

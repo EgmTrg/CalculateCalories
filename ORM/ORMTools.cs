@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 using System.Data.SqlClient;
 
 namespace CalculateCalories.ORM
@@ -6,9 +7,10 @@ namespace CalculateCalories.ORM
     internal static class ORMTools
     {
         const string connectionString = "Server=EGEMEN-PC;Database=CalculateCalories;Trusted_Connection=True;";
-        private static SqlConnection _connection;
-
         public static bool HasParameter(this SqlCommand command) => command.Parameters.Count <= 0;
+        public static string ToSqlDate(this DateTime dateTime)=> $"\'{dateTime.ToString("yyyy-MM-dd")}\'";
+        
+        private static SqlConnection _connection;
 
         public static SqlConnection Connection
         {

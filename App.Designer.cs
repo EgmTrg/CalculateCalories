@@ -36,12 +36,11 @@
             this.refresh_Button = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.week_comboBox = new System.Windows.Forms.ComboBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.openDetailedTable_ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.newData_button = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -53,7 +52,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(6, 25);
+            this.label1.Location = new System.Drawing.Point(5, 32);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(23, 16);
             this.label1.TabIndex = 0;
@@ -63,7 +62,7 @@
             // 
             this.id_textBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.id_textBox.Enabled = false;
-            this.id_textBox.Location = new System.Drawing.Point(35, 23);
+            this.id_textBox.Location = new System.Drawing.Point(34, 30);
             this.id_textBox.Name = "id_textBox";
             this.id_textBox.Size = new System.Drawing.Size(86, 20);
             this.id_textBox.TabIndex = 5;
@@ -71,7 +70,7 @@
             // dateTimePicker1
             // 
             this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateTimePicker1.Location = new System.Drawing.Point(296, 23);
+            this.dateTimePicker1.Location = new System.Drawing.Point(182, 30);
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.dateTimePicker1.Size = new System.Drawing.Size(105, 20);
@@ -81,7 +80,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(293, 5);
+            this.label2.Location = new System.Drawing.Point(179, 11);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(67, 16);
             this.label2.TabIndex = 3;
@@ -91,7 +90,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(407, 5);
+            this.label3.Location = new System.Drawing.Point(293, 11);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(32, 16);
             this.label3.TabIndex = 5;
@@ -100,7 +99,7 @@
             // dateTimePicker2
             // 
             this.dateTimePicker2.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateTimePicker2.Location = new System.Drawing.Point(410, 23);
+            this.dateTimePicker2.Location = new System.Drawing.Point(296, 30);
             this.dateTimePicker2.Name = "dateTimePicker2";
             this.dateTimePicker2.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.dateTimePicker2.Size = new System.Drawing.Size(105, 20);
@@ -108,13 +107,14 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.newData_button);
             this.panel1.Controls.Add(this.clear_Button);
             this.panel1.Controls.Add(this.refresh_Button);
             this.panel1.Controls.Add(this.groupBox1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 24);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(654, 84);
+            this.panel1.Size = new System.Drawing.Size(654, 78);
             this.panel1.TabIndex = 6;
             // 
             // clear_Button
@@ -146,12 +146,10 @@
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.dateTimePicker1);
-            this.groupBox1.Controls.Add(this.week_comboBox);
-            this.groupBox1.Location = new System.Drawing.Point(12, 12);
+            this.groupBox1.Location = new System.Drawing.Point(12, 3);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(526, 55);
+            this.groupBox1.Size = new System.Drawing.Size(422, 68);
             this.groupBox1.TabIndex = 8;
             this.groupBox1.TabStop = false;
             // 
@@ -159,41 +157,19 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(249, 25);
+            this.label5.Location = new System.Drawing.Point(135, 32);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(41, 16);
             this.label5.TabIndex = 3;
             this.label5.Text = "Tarih:";
             // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(127, 5);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(42, 16);
-            this.label4.TabIndex = 6;
-            this.label4.Text = "Hafta:";
-            // 
-            // week_comboBox
-            // 
-            this.week_comboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.week_comboBox.FormattingEnabled = true;
-            this.week_comboBox.Items.AddRange(new object[] {
-            "Hafta İçi",
-            "Hafta Sonu"});
-            this.week_comboBox.Location = new System.Drawing.Point(127, 23);
-            this.week_comboBox.Name = "week_comboBox";
-            this.week_comboBox.Size = new System.Drawing.Size(105, 21);
-            this.week_comboBox.TabIndex = 2;
-            // 
             // panel2
             // 
             this.panel2.Controls.Add(this.dataGridView1);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(0, 108);
+            this.panel2.Location = new System.Drawing.Point(0, 102);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(654, 363);
+            this.panel2.Size = new System.Drawing.Size(654, 369);
             this.panel2.TabIndex = 7;
             // 
             // dataGridView1
@@ -208,7 +184,7 @@
             this.dataGridView1.MultiSelect = false;
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.Size = new System.Drawing.Size(654, 363);
+            this.dataGridView1.Size = new System.Drawing.Size(654, 369);
             this.dataGridView1.TabIndex = 0;
             // 
             // menuStrip1
@@ -227,6 +203,17 @@
             this.openDetailedTable_ToolStripMenuItem.Size = new System.Drawing.Size(169, 20);
             this.openDetailedTable_ToolStripMenuItem.Text = "Open Detailed Calories Table";
             this.openDetailedTable_ToolStripMenuItem.Click += new System.EventHandler(this.openDetailedTable_ToolStripMenuItem_Click);
+            // 
+            // newData_button
+            // 
+            this.newData_button.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.newData_button.Location = new System.Drawing.Point(440, 10);
+            this.newData_button.Name = "newData_button";
+            this.newData_button.Size = new System.Drawing.Size(100, 61);
+            this.newData_button.TabIndex = 9;
+            this.newData_button.Text = "Yeni Satir Ekle";
+            this.newData_button.UseVisualStyleBackColor = true;
+            this.newData_button.Click += new System.EventHandler(this.newData_button_Click);
             // 
             // App
             // 
@@ -269,12 +256,11 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.ComboBox week_comboBox;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button clear_Button;
         private System.Windows.Forms.Button refresh_Button;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem openDetailedTable_ToolStripMenuItem;
+        private System.Windows.Forms.Button newData_button;
     }
 }

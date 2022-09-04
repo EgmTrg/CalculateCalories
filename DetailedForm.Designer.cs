@@ -127,7 +127,7 @@
             this.delete_ToolStripMenuItem.Name = "delete_ToolStripMenuItem";
             this.delete_ToolStripMenuItem.Size = new System.Drawing.Size(105, 22);
             this.delete_ToolStripMenuItem.Text = "Sil";
-            this.delete_ToolStripMenuItem.Click += new System.EventHandler(this.delete_ToolStripMenuItem_Click);
+            this.delete_ToolStripMenuItem.Click += new System.EventHandler(this.delete_button_Click);
             // 
             // open_ToolStripMenuItem
             // 
@@ -511,21 +511,19 @@
             this.update_button.TabIndex = 7;
             this.update_button.Text = "Update";
             this.update_button.UseVisualStyleBackColor = true;
-            this.update_button.Click += new System.EventHandler(this.insert_button_Click);
             // 
             // contextMenuStrip1
             // 
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.seciliSatirNumarasiToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(181, 48);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(179, 26);
             // 
             // seciliSatirNumarasiToolStripMenuItem
             // 
             this.seciliSatirNumarasiToolStripMenuItem.Name = "seciliSatirNumarasiToolStripMenuItem";
-            this.seciliSatirNumarasiToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.seciliSatirNumarasiToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
             this.seciliSatirNumarasiToolStripMenuItem.Text = "Secili satir numarasi";
-            this.seciliSatirNumarasiToolStripMenuItem.Click += new System.EventHandler(this.seciliSatirNumarasiToolStripMenuItem_Click);
             // 
             // DetailedForm
             // 

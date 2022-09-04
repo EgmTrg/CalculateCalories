@@ -28,5 +28,11 @@ namespace CalculateCalories
             dataGridView1.DataSource = ORMBase.Instance.GetPivotTable(begin_date, end_date).Tables[0];
         }
         #endregion
+
+        private void newData_button_Click(object sender, EventArgs e) {
+            DetailedForm detailedForm = new DetailedForm();
+            detailedForm.BringToFront();
+            detailedForm.Show();
+        }
     }
 }

@@ -22,7 +22,7 @@ namespace CalculateCalories
         private void insert_button_Click(object sender, EventArgs e) {
             ORMBase.DMLDatas datas = new ORMBase.DMLDatas();
             if (AutoProduct_checkBox.Checked) {
-                datas = ORMBase.Instance.GenerateRandomProductItem();
+                datas = Temp.GenerateRandomProductItem();
             }
             else {
                 datas.ID = (int)ID_numericUpDown.Value;
@@ -46,7 +46,19 @@ namespace CalculateCalories
         }
 
         private void delete_button_Click(object sender, EventArgs e) {
-            DeleteSelectedRow_Single();
+            int selectedRow = Tools.GetSelectedRowInDataGridView(dataGridView1);
+            if (selectedRow == -1) {
+                MessageBox.Show("Veri silmek için satır seçmeniz gerekmektedir.", "Satır Seç", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+                return;
+            }
+
+            int selectedRowID = (int)dataGridView1.Rows[selectedRow].Cells["ID"].Value;
+            bool result = ORMBase.Instance.Delete_DetailedCalories(selectedRowID);
+            dataGridView1.Rows.RemoveAt(selectedRow);
+            dataGridView1.ClearSelection();
+
+            if (refresh_checkBox.Checked)
+                refresh_button.PerformClick();
         }
 
         private void refresh_button_Click(object sender, EventArgs e) {
@@ -59,10 +71,6 @@ namespace CalculateCalories
                 dataGridView1.ClearSelection();
                 dataGridView1.Rows[hit.RowIndex].Selected = true;
             }
-        }
-
-        private void delete_ToolStripMenuItem_Click(object sender, EventArgs e) {
-            DeleteSelectedRow_Single();
         }
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e) {
@@ -87,46 +95,11 @@ namespace CalculateCalories
         }
         #endregion
 
-        #region Custom Methods
-        /*  ------------------------------------------------------------------------------
-         *                              CUSTOM METHODS REGION
-         *  ------------------------------------------------------------------------------ */
-
-        private void DeleteSelectedRow_Single() {
-            int selectedRow = Tools.GetSelectedRowInDataGridView(dataGridView1);
-            if (selectedRow == -1) {
-                MessageBox.Show("Veri silmek için satır seçmeniz gerekmektedir.", "Satır Seç", MessageBoxButtons.OK, MessageBoxIcon.Hand);
-                return;
-            }
-
-            int selectedRowID = (int)dataGridView1.Rows[selectedRow].Cells["ID"].Value;
-            bool result = ORMBase.Instance.Delete_DetailedCalories(selectedRowID);
-            dataGridView1.Rows.RemoveAt(selectedRow);
-            dataGridView1.ClearSelection();
-
-            if (refresh_checkBox.Checked)
-                refresh_button.PerformClick();
-        }
-
-        private string GetInfoSelectedRow() {
-            int selectedRow = Tools.GetSelectedRowInDataGridView(dataGridView1);
-            string info = "";
-
-            for (int i = 1; i < dataGridView1.Columns.Count; i++)
-                info += dataGridView1.Columns[i].Name + ": " + dataGridView1.Rows[selectedRow].Cells[i].Value.ToString() + '\n';
-            return info;
-        }
-        #endregion
-
         #region TEMP
 
         private void open_ToolStripMenuItem_Click(object sender, EventArgs e) {
-            string info = GetInfoSelectedRow();
+            string info = Temp.GetInfoSelectedRow(dataGridView1);
             MessageBox.Show(info, "Satır Bilgilendirmesi!", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
-
-        private void seciliSatirNumarasiToolStripMenuItem_Click(object sender, EventArgs e) {
-            MessageBox.Show(Tools.GetSelectedRowInDataGridView(dataGridView1).ToString());
         }
 
         #endregion

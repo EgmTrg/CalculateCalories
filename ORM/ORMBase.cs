@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Data;
 using System.Data.SqlClient;
-using System.Drawing;
 using System.Reflection;
+using System.Windows.Forms;
 
 namespace CalculateCalories.ORM
 {
@@ -53,10 +53,6 @@ namespace CalculateCalories.ORM
             return dataSet;
         }
 
-        public DataSet GetDetailedTable() {
-            return null;
-        }
-
         #region DMLOperations
 
         #region ForDetailedTable
@@ -92,7 +88,9 @@ namespace CalculateCalories.ORM
             return result;
         }
 
-        public bool Update_DetailedCalories() { return false; }
+        public bool Update_DetailedCalories() { 
+            return false; 
+        }
 
         public bool Delete_DetailedCalories(int ID) {
             string query = "Delete from DetailedCalories where ID = " + ID.ToString();
@@ -105,30 +103,6 @@ namespace CalculateCalories.ORM
         }
         #endregion
 
-
         #endregion
-
-        #region TEMP
-        public DMLDatas GenerateRandomProductItem() {
-            Random rand = new Random();
-            DMLDatas data = new DMLDatas();
-
-            data.ID = rand.Next(9000, 10000);
-            data.Date = rand.RandomDate().ToSqlDate();
-            data.ProductName = "\'TEST URUN\'";
-            data.Portion = rand.Next(1, 3);
-            data.Amount = rand.Next(1, 3);
-            data.Calorie = Math.Round(rand.NextDouble() * 100, 2);
-            data.Protein = Math.Round(rand.NextDouble() * 100, 2);
-            data.Carbohydrate = Math.Round(rand.NextDouble() * 100, 2);
-            data.Fat = Math.Round(rand.NextDouble() * 100, 2);
-            data.Fiber = Math.Round(rand.NextDouble() * 100, 2);
-            data.Cholesterol = Math.Round(rand.NextDouble() * 100, 2);
-            data.Sodium = Math.Round(rand.NextDouble() * 100, 2);
-            data.Potassium = Math.Round(rand.NextDouble() * 100, 2);
-
-            return data;
-        }
     }
-    #endregion
 }

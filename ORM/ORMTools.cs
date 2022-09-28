@@ -8,8 +8,8 @@ namespace CalculateCalories.ORM
     {
         const string connectionString = "Server=EGEMEN-PC;Database=CalculateCalories;Trusted_Connection=True;";
         public static bool HasParameter(this SqlCommand command) => command.Parameters.Count <= 0;
-        public static string ToSqlDate(this DateTime dateTime)=> $"\'{dateTime.ToString("yyyy-MM-dd")}\'";
-        
+        public static string ToSqlDate(this DateTime dateTime) => $"\'{dateTime.ToString("yyyy-MM-dd")}\'";
+
         private static SqlConnection _connection;
 
         public static SqlConnection Connection

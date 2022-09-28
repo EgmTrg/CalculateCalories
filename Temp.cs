@@ -7,11 +7,13 @@ namespace CalculateCalories
 {
     internal static class Temp
     {
-        public static DMLDatas GenerateRandomProductItem() {
+        public static DMLDatas GenerateRandomProductItem(int pivot_ID) {
             Random rand = new Random();
             DMLDatas data = new DMLDatas();
 
             data.ID = rand.Next(9000, 10000);
+            /*data.PivotID = 9999;*/
+            data.PivotID = pivot_ID;
             data.Date = rand.RandomDate().ToSqlDate();
             data.ProductName = "\'TEST URUN\'";
             data.Portion = rand.Next(1, 3);

@@ -7,12 +7,13 @@ namespace CalculateCalories
 {
     public static class Tools
     {
+        public static int RandomID() => new Random().Next(9000, 10000);
+
         public static int GetSelectedRowInDataGridView(DataGridView dataGridView) => 
             dataGridView.Rows.GetFirstRow(DataGridViewElementStates.Selected);
 
-        public static string DateToString(DateTime dateTime) => 
+        public static string DateToString(this DateTime dateTime) => 
             dateTime.ToString().Remove(11).Replace('.', '/');
-
 
         public static DateTime StringToDateTime(string date) {
             string[] splitted_date = date.Remove(10).Split('.');
@@ -28,5 +29,6 @@ namespace CalculateCalories
 
             return start_date.AddDays(random.Next(dateTime_Range));
         }
+
     }
 }

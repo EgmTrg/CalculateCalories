@@ -1,5 +1,8 @@
 ﻿using CalculateCalories.ORM;
 using System;
+using System.Data;
+using System.Globalization;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace CalculateCalories
@@ -7,6 +10,7 @@ namespace CalculateCalories
     public partial class App : Form
     {
         public App() {
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-us");
             InitializeComponent();
         }
 
@@ -18,21 +22,23 @@ namespace CalculateCalories
             dateTimePicker2.Value = DateTime.Today;
         }
 
-        private void openDetailedTable_ToolStripMenuItem_Click(object sender, EventArgs e) {
-            DetailedForm detailedForm = new DetailedForm();
-            detailedForm.Show();
-        }
-
         private void refresh_Button_Click(object sender, EventArgs e) {
             DateTime begin_date = dateTimePicker1.Value, end_date = dateTimePicker2.Value;
-            dataGridView1.DataSource = ORMBase.Instance.GetPivotTable(begin_date, end_date).Tables[0];
+            table.DataSource = ORMBase.Instance.GetTable(ORMBase.DBTable.Pivot, begin_date, end_date).Tables[0];
         }
         #endregion
 
-        private void newData_button_Click(object sender, EventArgs e) {
-            DetailedForm detailedForm = new DetailedForm();
+        private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e) {
+            int selected_ID = (int) table.Rows[e.RowIndex].Cells[0].Value;
+            DetailedForm detailedForm = new DetailedForm(selected_ID);
+            /*detailedForm.Text = selected_ID.ToString();*/
             detailedForm.BringToFront();
             detailedForm.Show();
+        }
+
+        private void newData_button_Click(object sender, EventArgs e) {
+            ORMBase.Instance.Insert_Pivot();
+            refresh_Button.PerformClick();
         }
     }
 }

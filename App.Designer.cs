@@ -32,20 +32,17 @@
             this.label3 = new System.Windows.Forms.Label();
             this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.newData_button = new System.Windows.Forms.Button();
             this.clear_Button = new System.Windows.Forms.Button();
             this.refresh_Button = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label5 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.openDetailedTable_ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.newData_button = new System.Windows.Forms.Button();
+            this.table = new System.Windows.Forms.DataGridView();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            this.menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.table)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -112,10 +109,21 @@
             this.panel1.Controls.Add(this.refresh_Button);
             this.panel1.Controls.Add(this.groupBox1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(0, 24);
+            this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(654, 78);
             this.panel1.TabIndex = 6;
+            // 
+            // newData_button
+            // 
+            this.newData_button.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.newData_button.Location = new System.Drawing.Point(440, 10);
+            this.newData_button.Name = "newData_button";
+            this.newData_button.Size = new System.Drawing.Size(100, 61);
+            this.newData_button.TabIndex = 9;
+            this.newData_button.Text = "Yeni Satir Ekle";
+            this.newData_button.UseVisualStyleBackColor = true;
+            this.newData_button.Click += new System.EventHandler(this.newData_button_Click);
             // 
             // clear_Button
             // 
@@ -165,55 +173,25 @@
             // 
             // panel2
             // 
-            this.panel2.Controls.Add(this.dataGridView1);
+            this.panel2.Controls.Add(this.table);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(0, 102);
+            this.panel2.Location = new System.Drawing.Point(0, 78);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(654, 369);
+            this.panel2.Size = new System.Drawing.Size(654, 393);
             this.panel2.TabIndex = 7;
             // 
-            // dataGridView1
+            // table
             // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.AllowUserToResizeRows = false;
-            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView1.Location = new System.Drawing.Point(0, 0);
-            this.dataGridView1.MultiSelect = false;
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.Size = new System.Drawing.Size(654, 369);
-            this.dataGridView1.TabIndex = 0;
-            // 
-            // menuStrip1
-            // 
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.openDetailedTable_ToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(654, 24);
-            this.menuStrip1.TabIndex = 8;
-            this.menuStrip1.Text = "menuStrip1";
-            // 
-            // openDetailedTable_ToolStripMenuItem
-            // 
-            this.openDetailedTable_ToolStripMenuItem.Name = "openDetailedTable_ToolStripMenuItem";
-            this.openDetailedTable_ToolStripMenuItem.Size = new System.Drawing.Size(169, 20);
-            this.openDetailedTable_ToolStripMenuItem.Text = "Open Detailed Calories Table";
-            this.openDetailedTable_ToolStripMenuItem.Click += new System.EventHandler(this.openDetailedTable_ToolStripMenuItem_Click);
-            // 
-            // newData_button
-            // 
-            this.newData_button.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.newData_button.Location = new System.Drawing.Point(440, 10);
-            this.newData_button.Name = "newData_button";
-            this.newData_button.Size = new System.Drawing.Size(100, 61);
-            this.newData_button.TabIndex = 9;
-            this.newData_button.Text = "Yeni Satir Ekle";
-            this.newData_button.UseVisualStyleBackColor = true;
-            this.newData_button.Click += new System.EventHandler(this.newData_button_Click);
+            this.table.AllowUserToResizeRows = false;
+            this.table.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.table.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.table.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.table.Location = new System.Drawing.Point(0, 0);
+            this.table.MultiSelect = false;
+            this.table.Name = "table";
+            this.table.Size = new System.Drawing.Size(654, 393);
+            this.table.TabIndex = 0;
+            this.table.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellDoubleClick);
             // 
             // App
             // 
@@ -223,8 +201,6 @@
             this.ClientSize = new System.Drawing.Size(654, 471);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.menuStrip1);
-            this.MainMenuStrip = this.menuStrip1;
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(1500, 800);
             this.MinimumSize = new System.Drawing.Size(670, 510);
@@ -236,11 +212,8 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.table)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -254,13 +227,11 @@
         private System.Windows.Forms.DateTimePicker dateTimePicker2;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView table;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button clear_Button;
         private System.Windows.Forms.Button refresh_Button;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem openDetailedTable_ToolStripMenuItem;
         private System.Windows.Forms.Button newData_button;
     }
 }

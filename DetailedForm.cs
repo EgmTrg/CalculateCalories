@@ -81,33 +81,36 @@ namespace CalculateCalories
         }
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e) {
+            if (e.RowIndex < 0)
+                return;
+
             DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
 
             if (row.DataBoundItem == null)
                 return;
 
-            ID_numericUpDown.Value = (int)row.Cells[0].Value;
-            pName_textBox.Text = row.Cells[3].Value.ToString();
-            dateTimePicker.Value = Tools.StringToDateTime(row.Cells[2].Value.ToString());
-            portion_numericUpDown.Value = int.Parse(row.Cells[4].Value.ToString());
-            amount_numericUpDown.Value = int.Parse(row.Cells[5].Value.ToString());
-            calorie_textBox.Text = row.Cells[6].Value.ToString();
-            protein_textBox.Text = row.Cells[7].Value.ToString();
-            carbohydrate_textBox.Text = row.Cells[8].Value.ToString();
-            fat_textBox.Text = row.Cells[9].Value.ToString();
-            fiber_textBox.Text = row.Cells[10].Value.ToString();
-            cholesterol_textBox.Text = row.Cells[11].Value.ToString();
-            sodium_textBox.Text = row.Cells[12].Value.ToString();
-            potassium_textBox.Text = row.Cells[13].Value.ToString();
+            ID_numericUpDown.Value = (int)row.Cells[1].Value;
+            dateTimePicker.Value = Tools.StringToDateTime(row.Cells[3].Value.ToString());
+            pName_textBox.Text = row.Cells[4].Value.ToString();
+            portion_numericUpDown.Value = int.Parse(row.Cells[5].Value.ToString());
+            amount_numericUpDown.Value = int.Parse(row.Cells[6].Value.ToString());
+            calorie_textBox.Text = row.Cells[7].Value.ToString();
+            protein_textBox.Text = row.Cells[8].Value.ToString();
+            carbohydrate_textBox.Text = row.Cells[9].Value.ToString();
+            fat_textBox.Text = row.Cells[10].Value.ToString();
+            fiber_textBox.Text = row.Cells[11].Value.ToString();
+            cholesterol_textBox.Text = row.Cells[12].Value.ToString();
+            sodium_textBox.Text = row.Cells[13].Value.ToString();
+            potassium_textBox.Text = row.Cells[14].Value.ToString();
         }
         #endregion
 
         #region TEMP
 
         private void HideColumns() {
-            dataGridView1.Columns[0].Visible = false;
-            dataGridView1.Columns[1].Visible = false;
-            dataGridView1.Columns[2].Visible = false;
+            dataGridView1.Columns[0].Visible = true;
+            dataGridView1.Columns[1].Visible = true;
+            dataGridView1.Columns[2].Visible = true;
         }
 
         private void open_ToolStripMenuItem_Click(object sender, EventArgs e) {
@@ -116,5 +119,33 @@ namespace CalculateCalories
         }
 
         #endregion
+
+        private void deleteTable_button_Click(object sender, EventArgs e) {
+            DialogResult result = MessageBox.Show("Bu tablo komple silinecek ve geri alinamayacak!", "Emin Misin?", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Stop);
+
+            if (result == DialogResult.Yes) {
+                bool result_ORM = ORMBase.Instance.Delete_DetailedTable(this.ID);
+                string message;
+
+                if (result_ORM == true) {
+                    message = "Silme Isleminiz Basarili!";
+                }
+                else {
+                    message = "Silinemedi!";
+                }
+                MessageBox.Show(message);
+            }
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e) {
+            if (e.ColumnIndex != 0)
+                return;
+
+            if ((Boolean) dataGridView1.Rows[e.RowIndex].Cells[0].EditedFormattedValue) {
+                MessageBox.Show(dataGridView1.Rows[e.RowIndex].Cells[0].EditedFormattedValue.ToString());
+            }
+            else
+                MessageBox.Show(dataGridView1.Rows[e.RowIndex].Cells[0].EditedFormattedValue.ToString());
+        }
     }
 }

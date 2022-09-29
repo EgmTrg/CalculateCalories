@@ -28,13 +28,14 @@
             this.components = new System.ComponentModel.Container();
             this.panel1 = new System.Windows.Forms.Panel();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.Check = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.dataGirdView_contextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.refresh_ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.delete_ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.open_ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.insert_button = new System.Windows.Forms.Button();
             this.refresh_button = new System.Windows.Forms.Button();
-            this.delete_button = new System.Windows.Forms.Button();
+            this.deleteRow_button = new System.Windows.Forms.Button();
             this.getSelectedRowIndex_button = new System.Windows.Forms.Button();
             this.refresh_checkBox = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -72,6 +73,7 @@
             this.update_button = new System.Windows.Forms.Button();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.seciliSatirNumarasiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deleteTable_button = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.dataGirdView_contextMenuStrip.SuspendLayout();
@@ -96,6 +98,8 @@
             // dataGridView1
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Check});
             this.dataGridView1.ContextMenuStrip = this.dataGirdView_contextMenuStrip;
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView1.Location = new System.Drawing.Point(0, 0);
@@ -104,7 +108,14 @@
             this.dataGridView1.Size = new System.Drawing.Size(1082, 357);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
+            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             this.dataGridView1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dataGridView1_MouseDown);
+            // 
+            // Check
+            // 
+            this.Check.HeaderText = "";
+            this.Check.Name = "Check";
+            this.Check.Width = 30;
             // 
             // dataGirdView_contextMenuStrip
             // 
@@ -156,21 +167,22 @@
             this.refresh_button.UseVisualStyleBackColor = true;
             this.refresh_button.Click += new System.EventHandler(this.refresh_button_Click);
             // 
-            // delete_button
+            // deleteRow_button
             // 
-            this.delete_button.Location = new System.Drawing.Point(995, 58);
-            this.delete_button.Name = "delete_button";
-            this.delete_button.Size = new System.Drawing.Size(75, 36);
-            this.delete_button.TabIndex = 8;
-            this.delete_button.Text = "Delete Selected";
-            this.delete_button.UseVisualStyleBackColor = true;
-            this.delete_button.Click += new System.EventHandler(this.delete_button_Click);
+            this.deleteRow_button.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.deleteRow_button.Location = new System.Drawing.Point(995, 58);
+            this.deleteRow_button.Name = "deleteRow_button";
+            this.deleteRow_button.Size = new System.Drawing.Size(75, 36);
+            this.deleteRow_button.TabIndex = 8;
+            this.deleteRow_button.Text = "Delete Selected Row";
+            this.deleteRow_button.UseVisualStyleBackColor = true;
+            this.deleteRow_button.Click += new System.EventHandler(this.delete_button_Click);
             // 
             // getSelectedRowIndex_button
             // 
             this.getSelectedRowIndex_button.Location = new System.Drawing.Point(914, 16);
             this.getSelectedRowIndex_button.Name = "getSelectedRowIndex_button";
-            this.getSelectedRowIndex_button.Size = new System.Drawing.Size(156, 36);
+            this.getSelectedRowIndex_button.Size = new System.Drawing.Size(75, 36);
             this.getSelectedRowIndex_button.TabIndex = 9;
             this.getSelectedRowIndex_button.Text = "Seçili Satır Numarası";
             this.getSelectedRowIndex_button.UseVisualStyleBackColor = true;
@@ -525,6 +537,17 @@
             this.seciliSatirNumarasiToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
             this.seciliSatirNumarasiToolStripMenuItem.Text = "Secili satir numarasi";
             // 
+            // deleteTable_button
+            // 
+            this.deleteTable_button.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.deleteTable_button.Location = new System.Drawing.Point(995, 16);
+            this.deleteTable_button.Name = "deleteTable_button";
+            this.deleteTable_button.Size = new System.Drawing.Size(75, 36);
+            this.deleteTable_button.TabIndex = 8;
+            this.deleteTable_button.Text = "Delete Table";
+            this.deleteTable_button.UseVisualStyleBackColor = true;
+            this.deleteTable_button.Click += new System.EventHandler(this.deleteTable_button_Click);
+            // 
             // DetailedForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -534,7 +557,8 @@
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.getSelectedRowIndex_button);
-            this.Controls.Add(this.delete_button);
+            this.Controls.Add(this.deleteTable_button);
+            this.Controls.Add(this.deleteRow_button);
             this.Controls.Add(this.refresh_button);
             this.Controls.Add(this.update_button);
             this.Controls.Add(this.insert_button);
@@ -571,7 +595,7 @@
         private System.Windows.Forms.ToolStripMenuItem refresh_ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem delete_ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem open_ToolStripMenuItem;
-        private System.Windows.Forms.Button delete_button;
+        private System.Windows.Forms.Button deleteRow_button;
         private System.Windows.Forms.Button getSelectedRowIndex_button;
         private System.Windows.Forms.CheckBox refresh_checkBox;
         private System.Windows.Forms.GroupBox groupBox1;
@@ -609,6 +633,8 @@
         private System.Windows.Forms.Button update_button;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem seciliSatirNumarasiToolStripMenuItem;
+        private System.Windows.Forms.Button deleteTable_button;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn Check;
     }
 }
 

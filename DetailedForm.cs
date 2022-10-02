@@ -1,5 +1,6 @@
 ﻿using CalculateCalories.ORM;
 using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace CalculateCalories
@@ -22,12 +23,12 @@ namespace CalculateCalories
          *  ------------------------------------------------------------------------------ */
 
         private void DetailedForm_Load(object sender, EventArgs e) {
-            dataGridView1.DataSource = ORMBase.Instance.GetTable(this.ID).Tables[0];
+            dataGridView1.DataSource = ORMBase.Instance.GetTable(this.ID).Data.Tables[0];
             refresh_button.PerformClick();
         }
 
         private void refresh_button_Click(object sender, EventArgs e) {
-            dataGridView1.DataSource = ORMBase.Instance.GetTable(this.ID).Tables[0];
+            dataGridView1.DataSource = ORMBase.Instance.GetTable(this.ID).Data.Tables[0];
             HideColumns();
         }
 
@@ -52,7 +53,7 @@ namespace CalculateCalories
                 datas.Sodium = double.Parse(sodium_textBox.Text);
             }
 
-            bool result = ORMBase.Instance.Insert_Detailed(datas);
+            ORMBase.Instance.Insert_Detailed(datas);
             if (refresh_checkBox.Checked)
                 refresh_button.PerformClick();
         }
@@ -65,7 +66,7 @@ namespace CalculateCalories
             }
 
             int selectedRowID = (int)dataGridView1.Rows[selectedRow].Cells["ID"].Value;
-            bool result = ORMBase.Instance.Delete_DetailedTable(selectedRowID);
+            ORMBase.Instance.Delete_DetailedTable(selectedRowID);
             dataGridView1.Rows.RemoveAt(selectedRow);
             dataGridView1.ClearSelection();
 
@@ -110,28 +111,25 @@ namespace CalculateCalories
             DialogResult result = MessageBox.Show("Bu tablo komple silinecek ve geri alinamayacak!", "Emin Misin?", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Stop);
 
             if (result == DialogResult.Yes) {
-                bool result_ORM = ORMBase.Instance.Delete_DetailedTable(this.ID);
-                string message;
-
-                if (result_ORM == true) {
-                    message = "Silme Isleminiz Basarili!";
-                }
-                else {
-                    message = "Silinemedi!";
-                }
+                string message = ORMBase.Instance.Delete_DetailedTable(this.ID).Message;
                 MessageBox.Show(message);
             }
         }
 
+        List<int> marked_Rows = new List<int>();
         private void dataGridView1_CheckBoxValueChanged(object sender, DataGridViewCellEventArgs e) {
+
             if (e.ColumnIndex != 0)
                 return;
 
             if ((Boolean)dataGridView1.Rows[e.RowIndex].Cells[0].EditedFormattedValue) {
+                // When any checkbox is ticked;
+                //marked_Rows.Add()
+            }
+            else {
+                // When any checkbox is cleared;
                 MessageBox.Show(dataGridView1.Rows[e.RowIndex].Cells[0].EditedFormattedValue.ToString());
             }
-            else
-                MessageBox.Show(dataGridView1.Rows[e.RowIndex].Cells[0].EditedFormattedValue.ToString());
         }
         #endregion
 

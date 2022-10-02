@@ -8,10 +8,12 @@ namespace CalculateCalories
     {
         private int ID { get; set; }
 
-        public DetailedForm(int ID) {
+        public DetailedForm(Tools.RowInfo row) {
             InitializeComponent();
-            this.ID = ID;
-            Text = ID.ToString();
+            this.ID = row.PivotID;
+            Text = row.PivotID.ToString();
+            ID_numericUpDown.Value = row.PivotID;
+            dateTimePicker.Value = row.Date;
         }
 
         #region Events
@@ -103,22 +105,6 @@ namespace CalculateCalories
             sodium_textBox.Text = row.Cells[13].Value.ToString();
             potassium_textBox.Text = row.Cells[14].Value.ToString();
         }
-        #endregion
-
-        #region TEMP
-
-        private void HideColumns() {
-            dataGridView1.Columns[0].Visible = true;
-            dataGridView1.Columns[1].Visible = true;
-            dataGridView1.Columns[2].Visible = true;
-        }
-
-        private void open_ToolStripMenuItem_Click(object sender, EventArgs e) {
-            string info = Temp.GetInfoSelectedRow(dataGridView1);
-            MessageBox.Show(info, "Satır Bilgilendirmesi!", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
-
-        #endregion
 
         private void deleteTable_button_Click(object sender, EventArgs e) {
             DialogResult result = MessageBox.Show("Bu tablo komple silinecek ve geri alinamayacak!", "Emin Misin?", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Stop);
@@ -137,15 +123,32 @@ namespace CalculateCalories
             }
         }
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e) {
+        private void dataGridView1_CheckBoxValueChanged(object sender, DataGridViewCellEventArgs e) {
             if (e.ColumnIndex != 0)
                 return;
 
-            if ((Boolean) dataGridView1.Rows[e.RowIndex].Cells[0].EditedFormattedValue) {
+            if ((Boolean)dataGridView1.Rows[e.RowIndex].Cells[0].EditedFormattedValue) {
                 MessageBox.Show(dataGridView1.Rows[e.RowIndex].Cells[0].EditedFormattedValue.ToString());
             }
             else
                 MessageBox.Show(dataGridView1.Rows[e.RowIndex].Cells[0].EditedFormattedValue.ToString());
         }
+        #endregion
+
+        #region TEMP
+
+        private void HideColumns() {
+            dataGridView1.Columns[0].Visible = true;
+            dataGridView1.Columns[1].Visible = true;
+            dataGridView1.Columns[2].Visible = true;
+        }
+
+        private void open_ToolStripMenuItem_Click(object sender, EventArgs e) {
+            string info = Temp.GetInfoSelectedRow(dataGridView1);
+            MessageBox.Show(info, "Satır Bilgilendirmesi!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+        #endregion
+
+
     }
 }

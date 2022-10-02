@@ -88,8 +88,8 @@
       <DependentUpon>DetailedForm.cs</DependentUpon>
     </Compile>
     <Compile Include="ORM\ORMBase.cs" />
-    <Compile Include="ORM\Result.cs" />
     <Compile Include="ORM\ORMTools.cs" />
+    <Compile Include="ORM\Result.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Temp.cs" />

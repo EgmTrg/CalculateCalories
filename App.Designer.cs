@@ -189,6 +189,7 @@
             this.table.Location = new System.Drawing.Point(0, 0);
             this.table.MultiSelect = false;
             this.table.Name = "table";
+            this.table.ReadOnly = true;
             this.table.Size = new System.Drawing.Size(654, 393);
             this.table.TabIndex = 0;
             this.table.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellDoubleClick);

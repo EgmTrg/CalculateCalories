@@ -128,7 +128,7 @@ namespace CalculateCalories.ORM
             
             return new Result<bool> {
                 IsSuccess = result,
-                Message = null,
+                Message = result ? "Silme Islemi Basarili." : "Silme isleminiz GERÇEKLEŞTİRİLEMEDİ!",
             };
         }
         #endregion

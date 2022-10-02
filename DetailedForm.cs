@@ -8,6 +8,7 @@ namespace CalculateCalories
     public partial class DetailedForm : Form
     {
         private int ID { get; set; }
+        List<int> marked_Rows = new List<int>();
 
         public DetailedForm(Tools.RowInfo row) {
             InitializeComponent();
@@ -59,19 +60,29 @@ namespace CalculateCalories
         }
 
         private void delete_button_Click(object sender, EventArgs e) {
-            int selectedRow = Tools.GetSelectedRowInDataGridView(dataGridView1);
-            if (selectedRow == -1) {
-                MessageBox.Show("Veri silmek için satır seçmeniz gerekmektedir.", "Satır Seç", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+            if (marked_Rows.Count <= 0) {
+                MessageBox.Show("Veri silmek için satır(lar) seçmeniz gerekmektedir.", "Satır Seç", MessageBoxButtons.OK, MessageBoxIcon.Hand);
                 return;
             }
 
-            int selectedRowID = (int)dataGridView1.Rows[selectedRow].Cells["ID"].Value;
-            ORMBase.Instance.Delete_DetailedTable(selectedRowID);
-            dataGridView1.Rows.RemoveAt(selectedRow);
-            dataGridView1.ClearSelection();
+            DialogResult dialog = MessageBox.Show("Seçili satırlar silinecek ve geri alinamayacak!", "Emin Misin?", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Stop);
+            if (dialog == DialogResult.Yes) {
+                foreach (int oneSingle_row in marked_Rows) {
+                    string message = ORMBase.Instance.Delete_DetailedTable(oneSingle_row).Message;
+                }
+            }
 
             if (refresh_checkBox.Checked)
                 refresh_button.PerformClick();
+        }
+
+        private void deleteTable_button_Click(object sender, EventArgs e) {
+            DialogResult result = MessageBox.Show("Bu tablo komple silinecek ve geri alinamayacak!", "Emin Misin?", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Stop);
+
+            if (result == DialogResult.Yes) {
+                string message = ORMBase.Instance.Delete_DetailedTable(this.ID).Message;
+                MessageBox.Show(message);
+            }
         }
 
 
@@ -107,29 +118,17 @@ namespace CalculateCalories
             potassium_textBox.Text = row.Cells[14].Value.ToString();
         }
 
-        private void deleteTable_button_Click(object sender, EventArgs e) {
-            DialogResult result = MessageBox.Show("Bu tablo komple silinecek ve geri alinamayacak!", "Emin Misin?", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Stop);
+        
 
-            if (result == DialogResult.Yes) {
-                string message = ORMBase.Instance.Delete_DetailedTable(this.ID).Message;
-                MessageBox.Show(message);
-            }
-        }
-
-        List<int> marked_Rows = new List<int>();
         private void dataGridView1_CheckBoxValueChanged(object sender, DataGridViewCellEventArgs e) {
-
             if (e.ColumnIndex != 0)
                 return;
 
-            if ((Boolean)dataGridView1.Rows[e.RowIndex].Cells[0].EditedFormattedValue) {
-                // When any checkbox is ticked;
-                //marked_Rows.Add()
-            }
-            else {
-                // When any checkbox is cleared;
-                MessageBox.Show(dataGridView1.Rows[e.RowIndex].Cells[0].EditedFormattedValue.ToString());
-            }
+            DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
+            if ((Boolean)row.Cells[0].EditedFormattedValue)
+                marked_Rows.Add((int)row.Cells[1].Value);
+            else
+                marked_Rows.Remove((int)row.Cells[1].Value);
         }
         #endregion
 
@@ -145,8 +144,16 @@ namespace CalculateCalories
             string info = Temp.GetInfoSelectedRow(dataGridView1);
             MessageBox.Show(info, "Satır Bilgilendirmesi!", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
+
         #endregion
 
+        private void getSelectedRowIndex_button_Click(object sender, EventArgs e) {
+            string text = "";
+            foreach (int item in marked_Rows) {
+                text += " " + item.ToString();
+            }
 
+            MessageBox.Show(text);
+        }
     }
 }

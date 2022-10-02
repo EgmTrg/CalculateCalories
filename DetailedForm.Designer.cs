@@ -509,12 +509,14 @@
             // 
             // getSelectedRowIndex_button
             // 
+            this.getSelectedRowIndex_button.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F);
             this.getSelectedRowIndex_button.Location = new System.Drawing.Point(914, 16);
             this.getSelectedRowIndex_button.Name = "getSelectedRowIndex_button";
             this.getSelectedRowIndex_button.Size = new System.Drawing.Size(75, 36);
             this.getSelectedRowIndex_button.TabIndex = 20;
-            this.getSelectedRowIndex_button.Text = "Seçili Satır Numarası";
+            this.getSelectedRowIndex_button.Text = "Seçili Satirlarin Numaralari";
             this.getSelectedRowIndex_button.UseVisualStyleBackColor = true;
+            this.getSelectedRowIndex_button.Click += new System.EventHandler(this.getSelectedRowIndex_button_Click);
             // 
             // deleteTable_button
             // 
@@ -525,6 +527,7 @@
             this.deleteTable_button.TabIndex = 18;
             this.deleteTable_button.Text = "Delete Table";
             this.deleteTable_button.UseVisualStyleBackColor = true;
+            this.deleteTable_button.Click += new System.EventHandler(this.deleteTable_button_Click);
             // 
             // deleteRow_button
             // 
@@ -535,6 +538,7 @@
             this.deleteRow_button.TabIndex = 19;
             this.deleteRow_button.Text = "Delete Selected Row";
             this.deleteRow_button.UseVisualStyleBackColor = true;
+            this.deleteRow_button.Click += new System.EventHandler(this.delete_button_Click);
             // 
             // refresh_button
             // 
@@ -544,6 +548,7 @@
             this.refresh_button.TabIndex = 15;
             this.refresh_button.Text = "Yenile";
             this.refresh_button.UseVisualStyleBackColor = true;
+            this.refresh_button.Click += new System.EventHandler(this.refresh_button_Click);
             // 
             // update_button
             // 
@@ -562,6 +567,7 @@
             this.insert_button.TabIndex = 17;
             this.insert_button.Text = "Insert";
             this.insert_button.UseVisualStyleBackColor = true;
+            this.insert_button.Click += new System.EventHandler(this.insert_button_Click);
             // 
             // DetailedForm
             // 

@@ -39,7 +39,7 @@ namespace CalculateCalories.ORM
         public enum DBTable { Pivot, Detailed }
         public DBTable Table { get; set; }
 
-        public DataSet GetTable(DBTable table, DateTime? begin = null, DateTime? end = null) {
+        public Result<DataSet> GetTable(DBTable table, DateTime? begin = null, DateTime? end = null) {
             string query = $"SELECT * FROM [{table}]";
             if (table == DBTable.Pivot && begin.HasValue && end.HasValue)
                 query += $" WHERE Date BETWEEN {begin.Value.ToSqlDate()} AND {end.Value.ToSqlDate()}";
@@ -49,23 +49,29 @@ namespace CalculateCalories.ORM
             SqlDataAdapter adp = new SqlDataAdapter(cmd);
             DataSet dt = new DataSet();
             adp.Fill(dt);
-            return dt;
+
+            return new Result<DataSet> {
+                IsSuccess = true,
+                Data = dt
+            };
         }
 
-        public DataSet GetTable(int PivotID) {
+        public Result<DataSet> GetTable(int PivotID) {
             string query = $"SELECT * FROM [Detailed] WHERE PivotID = {PivotID}";
 
             SqlCommand cmd = new SqlCommand(query,ORMTools.Connection);
             SqlDataAdapter adp = new SqlDataAdapter(cmd);
             DataSet dt = new DataSet();
             adp.Fill(dt);
-            return dt;
+
+            return new Result<DataSet> {
+                IsSuccess = true,
+                Data = dt
+            };
         }
         #region DMLOperations
 
-        #region ForDetailedTable
-
-        public bool Insert_Detailed(DMLDatas datas) {
+        public Result<bool> Insert_Detailed(DMLDatas datas) {
             string query_Columns = "(";
             string query_Values = " Values(";
             SqlCommand cmd = new SqlCommand("INSERT INTO [Detailed]", ORMTools.Connection);
@@ -84,10 +90,14 @@ namespace CalculateCalories.ORM
             ORMTools.Connection.Open();
             bool result = cmd.ExecuteNonQuery() >= 1 ? true : false;
             ORMTools.Connection.Close();
-            return result;
+
+            return new Result<bool> {
+                IsSuccess = result,
+                Message = null
+            };
         }
 
-        public bool Insert_Pivot() {
+        public Result<bool> Insert_Pivot() {
             string query_Insert = "INSERT INTO [Pivot] (ID,Date,Explanation,[Total Calories]) ";
             string query_Values = $"VALUES({Tools.RandomID()},{DateTime.Now.ToSqlDate()},0,0)";
             SqlCommand cmd = new SqlCommand();
@@ -97,23 +107,30 @@ namespace CalculateCalories.ORM
             ORMTools.Connection.Open();
             bool result = cmd.ExecuteNonQuery() >= 1 ? true : false;
             ORMTools.Connection.Close();
-            return result;
+
+            return new Result<bool> {
+                IsSuccess = result,
+                Message = null,
+            };
         }
 
-        public bool Update_Detailed() {
-            return false;
+        public Result<bool> Update_Detailed() {
+            return new Result<bool>();
         }
 
-        public bool Delete_DetailedTable(int ID) {
+        public Result<bool> Delete_DetailedTable(int ID) {
             string query = $"Delete from [Detailed] where ID = " + ID.ToString();
             SqlCommand cmd = new SqlCommand(query, ORMTools.Connection);
 
             ORMTools.Connection.Open();
             bool result = cmd.ExecuteNonQuery() >= 1 ? true : false;
             ORMTools.Connection.Close();
-            return result;
+            
+            return new Result<bool> {
+                IsSuccess = result,
+                Message = null,
+            };
         }
-        #endregion
         #endregion
     }
 }

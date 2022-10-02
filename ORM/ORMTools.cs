@@ -23,6 +23,8 @@ namespace CalculateCalories.ORM
             set { _connection = value; }
         }
 
+
+        #region ExecQueryWithResult
         public static Result<bool> ExecuteQuery(this SqlCommand command) {
             try {
                 if (command.Connection.State != ConnectionState.Open) {
@@ -35,7 +37,7 @@ namespace CalculateCalories.ORM
                     };
                 }
             }
-            catch (System.Exception ex) {
+            catch (Exception ex) {
                 return new Result<bool> {
                     IsSuccess = false,
                     Message = "Hata! " + ex.Message
@@ -51,5 +53,6 @@ namespace CalculateCalories.ORM
                 Message = "Hata!",
             };
         }
+        #endregion
     }
 }

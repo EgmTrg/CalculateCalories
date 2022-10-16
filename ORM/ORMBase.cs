@@ -2,7 +2,6 @@
 using System.Data;
 using System.Data.SqlClient;
 using System.Reflection;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace CalculateCalories.ORM
 {
@@ -36,8 +35,8 @@ namespace CalculateCalories.ORM
             public double Potassium;
         }
 
+        public enum TableItem { Table, Row, Column, Cell }
         public enum DBTable { Pivot, Detailed }
-        public DBTable Table { get; set; }
 
         public Result<DataSet> GetTable(DBTable table, DateTime? begin = null, DateTime? end = null) {
             string query = $"SELECT * FROM [{table}]";
@@ -59,7 +58,7 @@ namespace CalculateCalories.ORM
         public Result<DataSet> GetTable(int PivotID) {
             string query = $"SELECT * FROM [Detailed] WHERE PivotID = {PivotID}";
 
-            SqlCommand cmd = new SqlCommand(query,ORMTools.Connection);
+            SqlCommand cmd = new SqlCommand(query, ORMTools.Connection);
             SqlDataAdapter adp = new SqlDataAdapter(cmd);
             DataSet dt = new DataSet();
             adp.Fill(dt);
@@ -97,9 +96,9 @@ namespace CalculateCalories.ORM
             };
         }
 
-        public Result<bool> Insert_Pivot() {
+        public Result<bool> Insert_Pivot(int id) {
             string query_Insert = "INSERT INTO [Pivot] (ID,Date,Explanation,[Total Calories]) ";
-            string query_Values = $"VALUES({Tools.RandomID()},{DateTime.Now.ToSqlDate()},0,0)";
+            string query_Values = $"VALUES({id},{DateTime.Now.ToSqlDate()},0,0)";
             SqlCommand cmd = new SqlCommand();
             cmd.CommandText = query_Insert + query_Values;
             cmd.Connection = ORMTools.Connection;
@@ -118,14 +117,23 @@ namespace CalculateCalories.ORM
             return new Result<bool>();
         }
 
-        public Result<bool> Delete_DetailedTable(int ID) {
-            string query = $"Delete from [Detailed] where ID = " + ID.ToString();
+        public Result<bool> Delete_DetailedTable(DBTable table, TableItem item, int ID) {
+            string query = "";
+            if (item == TableItem.Row) {
+                query = $"Delete from [{table}] where ID = " + ID.ToString();
+            }
+            else {
+                string column = table == DBTable.Pivot ? "ID" : "PivotID";
+                query = $"Delete from [{table}] Where {column} = " + ID.ToString();
+
+            }
+
             SqlCommand cmd = new SqlCommand(query, ORMTools.Connection);
 
             ORMTools.Connection.Open();
             bool result = cmd.ExecuteNonQuery() >= 1 ? true : false;
             ORMTools.Connection.Close();
-            
+
             return new Result<bool> {
                 IsSuccess = result,
                 Message = result ? "Silme Islemi Basarili." : "Silme isleminiz GERÇEKLEŞTİRİLEMEDİ!",
